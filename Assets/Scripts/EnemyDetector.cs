@@ -10,7 +10,7 @@ public class EnemyDetector : MonoBehaviour
     public event EventHandler<ScaleArgs> OnScale;
     [SerializeField] private PlayerAnimator playerAnimator;
     [SerializeField] private PlayerAttack playerAttack;
-    private List<Vector3> decorList;
+    private List<Vector3> decorList= new List<Vector3>();
     bool onHitBool=false;
 
     public class ScaleArgs : EventArgs
@@ -28,7 +28,6 @@ public class EnemyDetector : MonoBehaviour
     {
         playerAttack.OnHit += Player_OnHit;
         playerAttack.OnFinishAttack += Player_OnFinishAttack;
-        decorList = new List<Vector3>();
     }
 
     private void Player_OnFinishAttack(object sender, EventArgs e)
@@ -75,10 +74,10 @@ public class EnemyDetector : MonoBehaviour
             StartCoroutine(DelayDestroy(other.transform.parent.gameObject));
             //Destroy(other.transform.parent);
         }
-        if (!onHitBool&&decorList.Count > 0)
+        if (!onHitBool && decorList.Count > 0)
         {
             Vector3 scale = SumVector(decorList);
-            Debug.Log("DecorListCount "+decorList.Count);
+            Debug.Log("DecorListCount " + decorList.Count);
             decorList.Clear();
             OnScale?.Invoke(this, new ScaleArgs
             {

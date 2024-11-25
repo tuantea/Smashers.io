@@ -16,6 +16,7 @@ public class JoystickPlayerExample : MonoBehaviour
     private void Start()
     {
         playerAnimator = GetComponent<PlayerAnimator>();
+        floatingJoystick = GameController.Instance.FloatingJoystick();
     }
     public void Update()
     {

@@ -25,6 +25,14 @@ public class CameraController : MonoBehaviour
         EnemyDetector.Instance.OnScale += Camera_OnScale;
         cameraFraming =camera.GetCinemachineComponent<CinemachineFramingTransposer>();
         cameraFraming2 = camera2.GetCinemachineComponent<CinemachineFramingTransposer>();
+        Debug.Log(111);
+        Transform player=Player.Instance.transform;
+        impulseSource = player.GetComponent<CinemachineImpulseSource>();
+        camera.Follow = player;
+        camera2.Follow = player;
+        //impulseSource = FindObjectOfType<CinemachineImpulseSource>();
+        Debug.Log(222);
+        //impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void Camera_OnScale(object sender, EnemyDetector.ScaleArgs e)

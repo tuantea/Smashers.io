@@ -17,6 +17,16 @@ public class Player : MonoBehaviour
     private bool isPlayGame=true;
     bool test = false;
     [SerializeField] private GameObject CharacterExplosion;
+    public static event EventHandler<EventArgs> OnPlayerInitialized;
+    public event EventHandler<EventArgs> OnLost;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        OnPlayerInitialized?.Invoke(this, EventArgs.Empty);
+    }
     void Start()
     {
         hammer.transform.SetParent(rightHand, true);
@@ -34,7 +44,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPlayGame)
+        if (StartGame.Instance.IsStartGame()&& isPlayGame)
         {
 
             if (Input.GetMouseButtonUp(0))
@@ -46,10 +56,10 @@ public class Player : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.K))
             {
-                playerAnimator.PlayerDie();
-                CharacterExplosion.SetActive(true);
-                visualTransform.localScale = new Vector3(1, 0.2f, 1);
-                StartCoroutine(ScalePlayer());
+                //playerAnimator.PlayerDie();
+                //visualTransform.localScale = new Vector3(1, 0.2f, 1);
+                //StartCoroutine(ScalePlayer());
+                PlayerDie();
             }
             if (Input.GetKey(KeyCode.A))
             {
@@ -65,9 +75,10 @@ public class Player : MonoBehaviour
     {
         PlayerAnimator playerAnimator = GetComponent<PlayerAnimator>();
         playerAnimator.PlayerDie();
-
+        CharacterExplosion.SetActive(true);
         visualTransform.localScale = new Vector3(1, 0.2f, 1);
         StartCoroutine(ScalePlayer());
+        OnLost?.Invoke(this, EventArgs.Empty);
     }
     IEnumerator ScalePlayer()
     {

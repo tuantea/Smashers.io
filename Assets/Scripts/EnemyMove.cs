@@ -18,13 +18,25 @@ public class EnemyMove : MonoBehaviour
     private void Update()
     {
 
+        //if (!isMove)
+        //{
+        //    agent.SetDestination(RandomPosition());
+        //    isMove = true;
+
+        //}
+        //if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance&& isMove)
+        //{
+        //    isMove = false;
+        //}
+    }
+    public void MovePosition(Vector3 position)
+    {
         if (!isMove)
         {
-            agent.SetDestination(RandomPosition());
+            agent.SetDestination(position);
             isMove = true;
-
         }
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance&& isMove&&test)
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && isMove)
         {
             isMove = false;
         }
@@ -39,7 +51,6 @@ public class EnemyMove : MonoBehaviour
     public void ResetPath()
     {
         agent.ResetPath();
-        test = false;
     }
 
 }

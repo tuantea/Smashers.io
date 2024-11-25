@@ -11,7 +11,10 @@ public class PlayerAnimator : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if(Instance == null)
+        {
+            Instance = this;
+        }         
     }
     private void Start()
     {
@@ -43,6 +46,11 @@ public class PlayerAnimator : MonoBehaviour
         cancelAttack = false;
         animator.SetTrigger("Attack");
     }
+    public void PlayerAttack(float speed)
+    {
+        animator.speed = speed ;
+        animator.SetTrigger("Attack");
+    }
     public void PlayerVictory(bool state)
     {
         animator.SetBool("Victory",true);
@@ -52,7 +60,10 @@ public class PlayerAnimator : MonoBehaviour
         Debug.Log("PlayerDie");
         animator.SetTrigger("Die");
     }
-    
+    public void ResetSpeed()
+    {
+        animator.speed = 1;
+    }
     public bool IsCancelAttack()
     {
         return cancelAttack;

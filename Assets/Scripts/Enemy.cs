@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,7 +12,9 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private GameObject CharacterExplosion;
 
-    bool test = false;
+    public event EventHandler<EventArgs> OnDie;
+
+    bool isDestroying = false;
     void Start()
     {
         hammer.transform.SetParent(rightHand, true);
@@ -24,26 +27,27 @@ public class Enemy : MonoBehaviour
         transform.DOScale(transform.localScale + e.scale, 1f);
     }
 
-
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.B))
-        {
-            EnemyDie();
-        }
-    }
     public void EnemyDie()
     {
-        PlayerAnimator enemyAnimator = GetComponent<PlayerAnimator>();
-        enemyAnimator.PlayerDie();
-        CharacterExplosion.SetActive(true);
-        visualTransform.localScale = new Vector3(1, 0.2f, 1);
-        StartCoroutine(ScalePlayer());
+        if (gameObject != null)
+        {
+            PlayerAnimator enemyAnimator = GetComponent<PlayerAnimator>();
+            enemyAnimator.PlayerDie();
+            isDestroying = true;
+            CharacterExplosion.SetActive(true);
+            visualTransform.localScale = new Vector3(1, 0.2f, 1);
+            StartCoroutine(ScalePlayer());
+        }   
+    }
+    public bool IsDestroying()
+    {
+        return isDestroying;
     }
     IEnumerator ScalePlayer()
     {
         yield return new WaitForSeconds(0.5f);
         visualTransform.DOScale(Vector3.zero, 2f);
+        OnDie?.Invoke(this,EventArgs.Empty);
         Destroy(gameObject);
 
     }
