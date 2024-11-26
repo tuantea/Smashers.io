@@ -29,7 +29,7 @@ public class Flee : IState
         isMove = false;
         //Vector3 position=Position();
         navMeshAgent.isStopped =false;
-        playerAnimator.PlayerRun(StartGame.Instance.IsStartGame());
+
         //navMeshAgent.SetDestination(position);
     }
     public void OnExit() { }
@@ -45,14 +45,11 @@ public class Flee : IState
         //    time = 0;
         //    Position();
         //}
-        Debug.Log("Flee Tick");
-        Debug.Log("Flee IsAttack "+IsAttack);
-        Debug.Log("Flee isMove "+ isMove);
-        Debug.Log("Stop"+ navMeshAgent.isStopped);
         if (!isMove)
         {
             navMeshAgent.SetDestination(Position());
             isMove = true;
+            playerAnimator.PlayerRun(true);
         }
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && isMove)
         {

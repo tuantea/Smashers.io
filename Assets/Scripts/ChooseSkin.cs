@@ -19,6 +19,7 @@ public class ChooseSkin : MonoBehaviour
         index = DataRuntimeManager.Instance.DataRuntime.Skin();
         Shop.Instance.OnChangeSkin += Shop_OnChangeSkin;
         ListSkin[index].gameObject.SetActive(true);
+        Debug.Log("StartChooseSkin");
     }
 
     private void Shop_OnChangeSkin(object sender, Shop.EventChangeSkin e)

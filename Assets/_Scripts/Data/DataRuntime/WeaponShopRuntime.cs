@@ -5,31 +5,43 @@ using UnityEngine;
 [System.Serializable]
 public class WeaponShopRuntime
 {
-    [SerializeField] private bool[] itemSOArray;
+    [SerializeField] private bool[] itemWeaponArray;
+    [SerializeField] private bool[] itemSkinArray;
 
-    public WeaponShopRuntime(bool[] listItemSOCommon)
+    public WeaponShopRuntime(bool[] listItemSOCommon, bool[] itemSkinArray)
     {
-        this.itemSOArray = listItemSOCommon;
+        this.itemWeaponArray = listItemSOCommon;
+        this.itemSkinArray = itemSkinArray;
     }
     public WeaponShopRuntime() { 
-        itemSOArray = new bool[27];
-        itemSOArray[0] = true;
+        itemWeaponArray = new bool[27];
+        itemSkinArray = new bool[27];
+        itemSkinArray[0] = true;
+        itemWeaponArray[0] = true;
     }
     public WeaponShopRuntime DeepCopy()
     {
-        return new WeaponShopRuntime(itemSOArray);
+        return new WeaponShopRuntime(itemWeaponArray,itemSkinArray);
     }
-    public bool[] GetListItem()
+    public bool[] GetListItemWeapon()
     {
-        return itemSOArray;
+        return itemWeaponArray;
+    }
+    public bool[] GetListItemSkin()
+    {
+        return itemSkinArray;
     }
     public int GetCount()
     {
-        return itemSOArray.Length;
+        return itemWeaponArray.Length;
     }
-    public void SetValueByIndex(int index)
+    public void SetValueByIndexWeapon(int index)
     {
-        itemSOArray[index] = true;
+        itemWeaponArray[index] = true;
+    }
+    public void SetValueByIndexSkin(int index)
+    {
+        itemWeaponArray[index] = true;
     }
 }
 public class DataShop

@@ -17,7 +17,7 @@ public class TabCommon : MonoBehaviour, ITab
     [SerializeField] private Sprite sprite1;
     [SerializeField] private ListItemSO listItemSO;
     [SerializeField] private int indexTab;
-    [SerializeField] private List<ItemThumbnail> itemThumbnailList;
+    [SerializeField] private List<ItemThumbnail> itemThumbnailList=new List<ItemThumbnail>();
     private WeaponShopRuntime weaponShopRuntime;
     DataRuntime dataRuntime;
     int index,skin;
@@ -26,19 +26,21 @@ public class TabCommon : MonoBehaviour, ITab
     [SerializeField] private ToggleGroup toggleGroup;
     private void Start()
     {
-        itemThumbnailList=new List<ItemThumbnail> ();
         dataRuntime = DataRuntimeManager.Instance.DataRuntime;
         listButton = new List<Button>();
         skin = dataRuntime.Skin();
         index = skin / 9;
+        //if (skin / 9 == indexTab)
+        //{
+        //    Active();
+        //}
         Shop.Instance.OnChangeSkin += ItemThumbnail_OnChangeSkin;
-        if (skin / 9 == indexTab) {
-            Active();
-        }
     }
 
     private void ItemThumbnail_OnChangeSkin(object sender, Shop.EventChangeSkin e)
     {
+        Debug.Log(e.indexSkin);
+        Debug.Log(e.indexSkin - 9 * indexTab);
         if (e.indexSkin >= 9 * indexTab && e.indexSkin < 9 * (indexTab + 1))
         {
             itemThumbnailList[e.indexSkin-9*indexTab].ChangeValue();
@@ -49,11 +51,32 @@ public class TabCommon : MonoBehaviour, ITab
     {
         return indexTab;
     }
-
+    public void ActiveSkin()
+    {
+        tabCommon.color = colorWhite;
+        rarityText.color = color;
+        skin = DataRuntimeManager.Instance.DataRuntime.Skin();
+        if (!isStart && skin >= 9 * indexTab && skin < 9 * (indexTab + 1))
+        {
+            Toggle[] toggles = toggleGroup.GetComponentsInChildren<Toggle>();
+            toggles[skin - 9 * indexTab].isOn = true;
+        }
+        if (isStart)
+        {
+            isStart = false;
+            weaponShopRuntime = DataRuntimeManager.Instance.WeaponShopRuntime;
+            bool[] isPurchase = weaponShopRuntime.GetListItemSkin();
+            for (int i = 9 * indexTab; i < 9 * (indexTab + 1); i++)
+            {
+                if (i >= listItemSO.itemSOList.Count) break;
+                CreateItemThumbnail(listItemSO.itemSOList[i], i, isPurchase[i], i == skin);
+            }
+        }
+    }
     public void Active()
     {
-        Debug.Log("Loggido");
-        Debug.Log("LogIndexTab"+indexTab);
+        Debug.Log("Active");
+        Debug.Log(isStart);
         tabCommon.color = colorWhite;
         rarityText.color = color;
         skin=DataRuntimeManager.Instance.DataRuntime.Skin();
@@ -66,7 +89,7 @@ public class TabCommon : MonoBehaviour, ITab
         {
             isStart = false;
             weaponShopRuntime = DataRuntimeManager.Instance.WeaponShopRuntime;
-            bool[] isPurchase = weaponShopRuntime.GetListItem();
+            bool[] isPurchase = weaponShopRuntime.GetListItemWeapon();
             for (int i = 9 * indexTab; i < 9 * (indexTab + 1); i++)
             {
                 if (i >= listItemSO.itemSOList.Count) break;

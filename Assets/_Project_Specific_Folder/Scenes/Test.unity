@@ -148295,7 +148295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenObject: {fileID: 855}
   tapToStart: {fileID: 2121608371}
-  joyStick: {fileID: 551095598}
+  Skin: {fileID: 0}
 --- !u!1 &116904236
 GameObject:
   m_ObjectHideFlags: 3
@@ -151551,6 +151551,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b440be4bde461e47b565ebbe0d199e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  welcome: {fileID: 0}
+  tapToStart: {fileID: 0}
+  Fade: {fileID: 0}
 --- !u!1 &1488516444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7899452070540039745, guid: f091385dae4ca8c4bb199586c0bbbadf, type: 3}
@@ -152948,9 +152951,9 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 0
-  m_YDamping: 0
-  m_ZDamping: 0
+  m_XDamping: 2
+  m_YDamping: 2
+  m_ZDamping: 2
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
@@ -153066,7 +153069,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_StandbyUpdate: 1
+  m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 4540672335838086}
   m_Lens:
@@ -153111,7 +153114,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047231572}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
   m_Name: 

@@ -12,6 +12,7 @@ public class Shop : MonoBehaviour
     private List<ItemSO> itemSOList;
     int playerCoins;
     public event EventHandler<EventChangeSkin> OnChangeSkin;
+    public event EventHandler<EventChangeSkin> OnChangeWeapon;
     public class EventChangeSkin:EventArgs
     {
         public int indexSkin;
@@ -29,39 +30,43 @@ public class Shop : MonoBehaviour
     }
     private void Start()
     {
-        TabManager.Instance.OnChangeValueShop += Instance_OnChangeValueShop; ;
+        TabManager.Instance.OnChangeValueShop += Instance_OnChangeValueShop;
         weaponShopRuntime = DataRuntimeManager.Instance.WeaponShopRuntime;
         dataRuntime = DataRuntimeManager.Instance.DataRuntime;
         //playerCoins = dataRuntime.Gold();
         playerCoins = 1000;
-        //itemSOList=new List<ItemSO>();
-        //List<int> listWeaponOwned=dataRuntime.GetListWeaponsOwned();
-        //bool[] itemPool = weaponShopRuntime.GetListItem(); 
-        //if (itemPool != null && itemPool.Length > 0)
-        //{
-        //    for (int i = 0; i < itemPool.Length; i++)
-        //    {
-        //        if (!itemPool[i])
-        //        {
-        //           itemSOList.Add(listItemSO.itemSOList[i]);
-        //        }
-        //    }
-        //}
     }
 
     private void Instance_OnChangeValueShop(object sender, TabManager.ChangeValueShopEvent e)
     {
         itemSOList = new List<ItemSO>();
         int index = e.index;
-        List<int> listWeaponOwned = dataRuntime.GetListWeaponsOwned();
-        bool[] itemPool = weaponShopRuntime.GetListItem();
-        if (itemPool != null && itemPool.Length > 0)
+        Debug.Log("TypeShop "+e.typeShop.ToString());
+        if (e.typeShop == 0) 
         {
-            for (int i = 9*index; i < 9*(index+1); i++)
+            bool[] itemPool = weaponShopRuntime.GetListItemSkin();
+            if (itemPool != null && itemPool.Length > 0)
             {
-                if (!itemPool[i])
+                for (int i = 9 * index; i < 9 * (index + 1); i++)
                 {
-                    itemSOList.Add(listItemSO.itemSOList[i]);
+                    if (!itemPool[i])
+                    {
+                        itemSOList.Add(listItemSO.itemSOList[i]);
+                    }
+                }
+            }
+        }
+        else
+        {
+            bool[] itemPool = weaponShopRuntime.GetListItemWeapon();
+            if (itemPool != null && itemPool.Length > 0)
+            {
+                for (int i = 9 * index; i < 9 * (index + 1); i++)
+                {
+                    if (!itemPool[i])
+                    {
+                        itemSOList.Add(listItemSO.itemSOList[i]);
+                    }
                 }
             }
         }
@@ -70,6 +75,7 @@ public class Shop : MonoBehaviour
 
     public void BuyItem()
     {
+        Debug.Log("BuyItem");
         if (itemSOList == null || itemSOList.Count == 0)
         {
             return;
@@ -84,8 +90,30 @@ public class Shop : MonoBehaviour
             ItemSO randomItem = GetRandomItem();
             int index = listItemSO.itemSOList.IndexOf(randomItem);
             itemSOList.Remove(randomItem);
-            weaponShopRuntime.SetValueByIndex(index);
+            weaponShopRuntime.SetValueByIndexWeapon(index);
             OnChangeSkin?.Invoke(this,new EventChangeSkin { indexSkin = index});
+        }
+    }
+    public void BuyItemSkin()
+    {
+        Debug.Log("BuyItemSkin");
+        if (itemSOList == null || itemSOList.Count == 0)
+        {
+            Debug.Log("nullnek");
+            return;
+        }
+
+        int purchasePrice = 10;
+
+        if (playerCoins >= purchasePrice)
+        {
+            playerCoins -= purchasePrice;
+
+            ItemSO randomItem = GetRandomItem();
+            int index = listItemSO.itemSOList.IndexOf(randomItem);
+            itemSOList.Remove(randomItem);
+            weaponShopRuntime.SetValueByIndexSkin(index);
+            OnChangeSkin?.Invoke(this, new EventChangeSkin { indexSkin = index });
         }
     }
     private ItemSO GetRandomItem()

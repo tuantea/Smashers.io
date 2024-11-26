@@ -18,15 +18,16 @@ public class ChooseWeapon : MonoBehaviour
     void Start()
     {
         index = DataRuntimeManager.Instance.DataRuntime.Skin();
-        Shop.Instance.OnChangeSkin += Shop_OnChangeSkin;
+        Shop.Instance.OnChangeSkin += Shop_OnChangeWeapon;
         ListSkin.GetChild(index).gameObject.SetActive(true);
     }
 
-    private void Shop_OnChangeSkin(object sender, Shop.EventChangeSkin e)
+    private void Shop_OnChangeWeapon(object sender, Shop.EventChangeSkin e)
     {
         ListSkin.GetChild(index).gameObject.SetActive(false);
-        DataRuntimeManager.Instance.DataRuntime.SetSkin(e.indexSkin);
+        DataRuntimeManager.Instance.DataRuntime.SetWeapon(e.indexSkin);
         index=e.indexSkin;
+        Debug.Log("ChangeWeapon" + e.indexSkin);
         ListSkin.GetChild(e.indexSkin).gameObject.SetActive(true);
     }
 
