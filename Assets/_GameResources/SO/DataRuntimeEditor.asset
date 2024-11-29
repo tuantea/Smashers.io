@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dynamicData:
     level: 1
-    weapon: 7
+    weapon: 0
     gold: 0
-    skin: 12
+    skin: 4
     skinsOwned: 
     weaponsOwned: 

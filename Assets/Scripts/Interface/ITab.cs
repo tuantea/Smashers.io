@@ -4,5 +4,8 @@ using UnityEngine;
 
 public interface ITab 
 {
-    private void Active() { }
+    void Active() { }
+    void UnActive() { }
+
+    int GetIndexTab();
 }

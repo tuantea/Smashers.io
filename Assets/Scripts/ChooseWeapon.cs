@@ -7,6 +7,7 @@ public class ChooseWeapon : MonoBehaviour
 {
     public static ChooseWeapon Instance { get; private set; }
     [SerializeField] private Transform ListSkin;
+    public event EventHandler<EventArgs> OnChangeHammer;
     int index;
     private void Awake()
     {
@@ -18,7 +19,7 @@ public class ChooseWeapon : MonoBehaviour
     void Start()
     {
         index = DataRuntimeManager.Instance.DataRuntime.Skin();
-        Shop.Instance.OnChangeSkin += Shop_OnChangeWeapon;
+        ShopWeapon.Instance.OnChangeWeapon += Shop_OnChangeWeapon;
         ListSkin.GetChild(index).gameObject.SetActive(true);
     }
 
@@ -33,9 +34,11 @@ public class ChooseWeapon : MonoBehaviour
 
     public void OnChangeSkin(int indexChoose)
     {
+        Debug.Log("OnchageSkinWeapon");
         ListSkin.GetChild(index).gameObject.SetActive(false);
-        DataRuntimeManager.Instance.DataRuntime.SetSkin(indexChoose);
+        DataRuntimeManager.Instance.DataRuntime.SetWeapon(indexChoose);
         index = indexChoose;
         ListSkin.GetChild(indexChoose).gameObject.SetActive(true);
+        OnChangeHammer?.Invoke(this, EventArgs.Empty);
     }
 }

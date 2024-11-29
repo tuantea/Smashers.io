@@ -16,4 +16,8 @@ public class Skin : MonoBehaviour
     {
         return animatorController;
     }
+    public bool IsHeroA()
+    {
+        return typeSkin == TypeSkin.Hero_A;
+    }
 }

@@ -13,7 +13,7 @@ public class TabManager : MonoBehaviour
 {
     public static TabManager Instance { get; private set; }
     [SerializeField] TypeShop typeShop;
-    private TabCommon tabCurrent;
+    private ITab tabCurrent;
     public Button[] tabButtons;
     public GameObject[] panel;
     public event EventHandler<ChangeValueShopEvent> OnChangeValueShop;
@@ -41,16 +41,16 @@ public class TabManager : MonoBehaviour
         if (typeShop == TypeShop.Skin)
         {
             skin = DataRuntimeManager.Instance.DataRuntime.Skin();
+            indexTab = skin / 9;
+            tabCurrent = tabButtons[indexTab].transform.GetComponent<TabCommonSkin>();
         }
         else
         {
             skin = DataRuntimeManager.Instance.DataRuntime.Weapon();
-        }
-        indexTab = skin / 9;
-        tabCurrent = tabButtons[indexTab].transform.GetComponent<TabCommon>();
-       // tabCurrent.Active();
+            indexTab = skin / 9;
+            tabCurrent = tabButtons[indexTab].transform.GetComponent<TabCommon>();
+        }   
         panel[indexTab].SetActive(true);
-       // OpenTab(indexTab);
         StartCoroutine(AwaitEvent(indexTab));
     }
     private void OnEnable()
@@ -61,8 +61,8 @@ public class TabManager : MonoBehaviour
             index = DataRuntimeManager.Instance.DataRuntime.Skin();
             Debug.Log("SkinIndex "+index);
             indexTab = index / 9;
-            tabCurrent = tabButtons[indexTab].transform.GetComponent<TabCommon>();
-            tabCurrent.ActiveSkin();
+            tabCurrent = tabButtons[indexTab].transform.GetComponent<TabCommonSkin>();
+            tabCurrent.Active();
         }
         else
         {
@@ -74,27 +74,31 @@ public class TabManager : MonoBehaviour
             tabCurrent.Active();
         }
         panel[indexTab].SetActive(true);
-        Debug.Log("name"+panel[indexTab].transform.name);
-        Debug.Log("IndexTab1 " + indexTab);
         OpenTab(indexTab);
     }
 
     public void OpenTab(int index)
     {
+        Debug.Log(tabCurrent == null);
         int indexTabCurrent= tabCurrent.GetIndexTab();
         Debug.Log("indexTabcurrent " + indexTabCurrent);
+        Test();
         if(indexTabCurrent != index) 
         {
             Debug.Log("kkkkdavaoday");
             tabCurrent.UnActive();
             panel[indexTabCurrent].SetActive(false);
-            tabCurrent = tabButtons[index].transform.GetComponent<TabCommon>();
+            
+            Debug.Log(typeShop == TypeShop.Skin);
             if (typeShop == TypeShop.Skin)
             {
-                tabCurrent.ActiveSkin();
+                tabCurrent = tabButtons[index].transform.GetComponent<TabCommonSkin>();
+                tabCurrent.Active();
+                Debug.Log("ActiveSkin111");
             }
             else
             {
+                tabCurrent = tabButtons[index].transform.GetComponent<TabCommon>();
                 tabCurrent.Active();
                 Debug.Log("Active111");
             }
@@ -106,6 +110,14 @@ public class TabManager : MonoBehaviour
                 typeShop = this.typeShop,
             });
         }
+    }
+    public void Test()
+    {
+        Debug.Log(typeShop.ToString());
+    }
+    public TypeShop GetTypeShop()
+    {
+        return typeShop;
     }
     IEnumerator AwaitEvent(int indexTab)
     {

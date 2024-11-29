@@ -41,7 +41,7 @@ public class WeaponShopRuntime
     }
     public void SetValueByIndexSkin(int index)
     {
-        itemWeaponArray[index] = true;
+        itemSkinArray[index] = true;
     }
 }
 public class DataShop

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Camera cameraUI;
     [SerializeField] private GameObject shopSkin;
     [SerializeField] private GameObject shopWeapon;
+    public event EventHandler<EventArgs> OnUpdate;
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class ShopManager : MonoBehaviour
         shopSkin.SetActive(false);
         shopWeapon.SetActive(false);
         cameraUI.gameObject.SetActive(false);
+        OnUpdate?.Invoke(this,EventArgs.Empty);
     }
     public void ShowShopSkin()
     {

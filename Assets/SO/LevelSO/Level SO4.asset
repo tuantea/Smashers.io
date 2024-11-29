@@ -16,4 +16,4 @@ MonoBehaviour:
   shortDescription: Level4
   scene: Level2
   amountCoin: 0
-  gameLevel1: {fileID: 2473213094898802573, guid: 4aef8a656b5734d4082914f35b2e678b, type: 3}
+  gameLevel1: {fileID: 2473213094898802573, guid: a3ea65a036fbc6847bee0005fee4ff37, type: 3}
