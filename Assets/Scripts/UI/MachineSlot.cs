@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class SlotMachine : MonoBehaviour
 {
     public static event EventHandler<EventArgs> SlotChanged;
-
+    [SerializeField] private CoinCount coinCount;
     [SerializeField] private Row[] rows;
     [SerializeField] private Button handle;
     [SerializeField] private Button _back;
@@ -53,7 +53,8 @@ public class SlotMachine : MonoBehaviour
         else if (rows[0].stoppedSlot == rows[1].stoppedSlot &&
              rows[1].stoppedSlot == rows[2].stoppedSlot && rows[2].stoppedSlot == "Money")
         {
-            Debug.Log("CCC");
+            Debug.Log("Money");
+            coinCount.CollectCoins1();
         }
         resultsChecked = true;
         rowsStoppedCount = 0;

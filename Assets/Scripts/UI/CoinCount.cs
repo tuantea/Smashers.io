@@ -38,6 +38,7 @@ public class CoinCount : MonoBehaviour
     void Start()
     {
         _coinText.text = DataRuntimeManager.Instance.DataRuntime.Gold().ToString();
+        coin = DataRuntimeManager.Instance.DataRuntime.Gold();
     }
 
     public async void NextLevel()
