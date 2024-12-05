@@ -66,6 +66,10 @@ public class DataRuntime
     {
         this.skin = skin;
     }
+    public void SetGold(int gold)
+    {
+        this.gold = gold;
+    }
     public void SetData(int level,int weapon,int gold,int skin)
     {
         this.level = level;

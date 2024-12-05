@@ -12,16 +12,19 @@ public class ChoosePlayerSkin : MonoBehaviour
     {
         index = DataRuntimeManager.Instance.DataRuntime.Skin();
         ShopManager.Instance.OnUpdate += Play_OnUpdate;
-        ListSkin[index].gameObject.SetActive(true);
+        ListSkin[index].gameObject.SetActive(true); 
         _permanant.SetActive(ListSkin[index].GetComponent<Skin>().IsHeroA());
     }
 
     private void Play_OnUpdate(object sender, System.EventArgs e)
     {
-
         ListSkin[index].gameObject.SetActive(false);
         index = DataRuntimeManager.Instance.DataRuntime.Skin();
         ListSkin[index].gameObject.SetActive(true);
         _permanant.SetActive(ListSkin[index].GetComponent<Skin>().IsHeroA());
+    }
+    void OnDestroy()
+    {
+        ShopManager.Instance.OnUpdate -= Play_OnUpdate;
     }
 }

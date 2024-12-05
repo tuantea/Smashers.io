@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DataRuntimeEditor
   m_EditorClassIdentifier: 
   dynamicData:
-    level: 1
-    weapon: 0
-    gold: 0
-    skin: 4
+    level: 4
+    weapon: 3
+    gold: 50
+    skin: 0
     skinsOwned: 
     weaponsOwned: 

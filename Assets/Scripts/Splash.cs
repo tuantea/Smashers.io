@@ -14,6 +14,7 @@ public class Splash : MonoBehaviour
     [SerializeField] private GameObject saveManager;
     void Start()
     {
+        Application.targetFrameRate = 60;
         screenToLoadList = new List<AsyncOperation>();
         level = DataRuntimeManager.Instance.DataRuntime.Level();
         screenToLoadList.Add(SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive));

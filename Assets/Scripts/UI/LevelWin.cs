@@ -1,10 +1,13 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelWin : MonoBehaviour
 {
     [SerializeField] private GameObject UIGameWin;
+    [SerializeField] private Button _buttonWin;
     //private void Start()
     //{
     //    //StartCoroutine(WaitForPlayerInstance());
@@ -47,5 +50,12 @@ public class LevelWin : MonoBehaviour
         {
             EnemyManager.Instance.OnWin += UI_OnWin;
         }
+    }
+
+    public async void AwaitNextLevel()
+    {
+        _buttonWin.interactable = false;
+        await UniTask.Delay(4000);
+        _buttonWin.interactable = true;
     }
 }

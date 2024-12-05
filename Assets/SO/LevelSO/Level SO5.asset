@@ -16,4 +16,4 @@ MonoBehaviour:
   shortDescription: Level5
   scene: Level1
   amountCoin: 0
-  gameLevel1: {fileID: 2473213094898802573, guid: f45e4a83642093445a54706973e7258f, type: 3}
+  _levelPrefab: {fileID: 2473213094898802573, guid: f45e4a83642093445a54706973e7258f, type: 3}

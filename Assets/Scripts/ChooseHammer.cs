@@ -19,4 +19,9 @@ public class ChooseHammer : MonoBehaviour
         index = DataRuntimeManager.Instance.DataRuntime.Weapon();
         ListSkin.GetChild(index).gameObject.SetActive(true);
     }
+    void OnDestroy()
+    {
+        ShopManager.Instance.OnUpdate -= Player_OnUpdate;
+    }
+
 }

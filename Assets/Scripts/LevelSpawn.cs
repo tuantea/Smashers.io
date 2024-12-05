@@ -9,6 +9,7 @@ public class LevelSpawn : MonoBehaviour
     public void Start() 
     {
         int index = DataRuntimeManager.Instance.DataRuntime.Level() - 1;
-        Instantiate(listLevelSO[index].gameLevel1, levelParent);
+       // Instantiate(listLevelSO[index].gameLevel1);
+        Instantiate(listLevelSO[index]._levelPrefab, levelParent);
     }
 }

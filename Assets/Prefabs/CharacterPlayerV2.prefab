@@ -14550,6 +14550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e5d21beca44e64f862b8c38d160c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 0}
+  playerAttack: {fileID: 0}
 --- !u!1 &2739709522203135693
 GameObject:
   m_ObjectHideFlags: 0
@@ -22712,6 +22714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 9088415960017448806}
   hitParticle: {fileID: 1603382543733283919}
+  playerAttack: {fileID: 0}
 --- !u!1 &4378147455612412230
 GameObject:
   m_ObjectHideFlags: 0
@@ -30282,6 +30285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938f0d8110da5984382de6c29cf85bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hammer: {fileID: 0}
 --- !u!1 &7027354178109722674
 GameObject:
   m_ObjectHideFlags: 0
@@ -36331,6 +36335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5965986348787331791}
+  skin: {fileID: 0}
 --- !u!114 &271502061557153087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36346,6 +36351,7 @@ MonoBehaviour:
   visualTransform: {fileID: 7221913532069713867}
   rightHand: {fileID: 1664880680006470073}
   hammer: {fileID: 5562621904567412516}
+  CharacterExplosion: {fileID: 0}
 --- !u!114 &7828370506132855445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36411,6 +36417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0478719847a474baea8ff9e6db1230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAttack: {fileID: 0}
 --- !u!114 &6329365237332227557
 MonoBehaviour:
   m_ObjectHideFlags: 0

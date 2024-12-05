@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     private CinemachineFramingTransposer cameraFraming;
     private CinemachineFramingTransposer cameraFraming2;
     [SerializeField] CinemachineImpulseSource impulseSource;
+    private Transform player;
     Tween changeCamera;
     int count = 0;
     private void Awake()
@@ -22,15 +23,17 @@ public class CameraController : MonoBehaviour
     }
     void Start()
     {
-        EnemyDetector.Instance.OnScale += Camera_OnScale;
+        StartCoroutine(AwaitInstance());
+        Debug.Log("EnemyDetector.Instance");
+        Debug.Log(EnemyDetector.Instance == null);
+        //EnemyDetector.Instance.OnScale += Camera_OnScale;
         cameraFraming =camera.GetCinemachineComponent<CinemachineFramingTransposer>();
         cameraFraming2 = camera2.GetCinemachineComponent<CinemachineFramingTransposer>();
-        Debug.Log(111);
-        Transform player=Player.Instance.transform;
-        impulseSource = player.GetComponent<CinemachineImpulseSource>();
-        camera.Follow = player;
-        camera2.Follow = player;
-        //impulseSource = FindObjectOfType<CinemachineImpulseSource>();
+        //Transform player = Player.Instance.transform;
+        //impulseSource = player.GetComponent<CinemachineImpulseSource>();
+        //camera.Follow = player;
+        //camera2.Follow = player;
+        impulseSource = FindObjectOfType<CinemachineImpulseSource>();
         Debug.Log(222);
         //impulseSource = GetComponent<CinemachineImpulseSource>();
     }
@@ -84,4 +87,20 @@ public class CameraController : MonoBehaviour
     //    //float targetDistance2 = cameraFraming2.m_CameraDistance + 4f*x;
     //    //yield return DOTween.To(() => cameraFraming2.m_CameraDistance, x => cameraFraming2.m_CameraDistance = x, targetDistance2, 1f).WaitForCompletion();
     //}
+    IEnumerator AwaitInstance()
+    {
+        while (EnemyDetector.Instance == null)
+        {
+            yield return null;
+        }
+        EnemyDetector.Instance.OnScale += Camera_OnScale;
+        while (Player.Instance == null)
+        {
+            yield return null;
+        }
+        Transform player = Player.Instance.transform;
+        impulseSource = player.GetComponent<CinemachineImpulseSource>();
+        camera.Follow = player;
+        camera2.Follow = player;
+    }
 }

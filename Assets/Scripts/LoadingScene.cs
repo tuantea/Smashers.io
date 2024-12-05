@@ -43,4 +43,13 @@ public class LoadingScene : MonoBehaviour
             Debug.LogError($"Failed to load the scene {sceneToLoad}.");
         }
     }
+    int count = 0,sum=0;
+    private void Update()
+    {
+        count++;
+        int k= Mathf.CeilToInt(1.0f / Time.deltaTime);
+        sum += k;
+        Debug.Log("fps: " + k);
+        Debug.Log("fpsTB: " + Mathf.CeilToInt(sum / count));
+    }
 }

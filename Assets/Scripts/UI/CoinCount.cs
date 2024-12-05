@@ -76,6 +76,8 @@ public class CoinCount : MonoBehaviour
         await UniTask.WhenAll(spawnCoinTaskList);
         // Move all the coins to the coin label
         await MoveCoinsTask();
+        int gold = DataRuntimeManager.Instance.DataRuntime.Gold();
+        DataRuntimeManager.Instance.DataRuntime.SetGold(gold + 50);
         // Animation the reaction when collecting coin
     }
 
@@ -104,7 +106,7 @@ public class CoinCount : MonoBehaviour
         Destroy(temp);
 
         await ReactToCollectionCoin();
-        SetCoin(coin + 1);
+        SetCoin(coin + 5);
     }
 
     private async UniTask ReactToCollectionCoin()
