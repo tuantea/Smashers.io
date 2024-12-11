@@ -28,6 +28,7 @@ public class LevelWin : MonoBehaviour
         Debug.Log("UI_OnWin");
         UIGameWin.SetActive(true);
         GameController.Instance.GameControllerFinish();
+        StartGame.Instance.SetIsStartGame(false);
     }
     private void OnEnable()
     {

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,7 +35,8 @@ public class EnemyAttack : MonoBehaviour
 
     private void PlayerAttack_OnHit(object sender, EventArgs e)
     {
-        onHitBool = true;
+        //  onHitBool = true;
+        StartCoroutine(ResetOnHitBool(0.05f));
     }
 
     private void OnTriggerStay(Collider other)
@@ -89,6 +91,12 @@ public class EnemyAttack : MonoBehaviour
     //        Test = false;
     //    }
     //}
+    IEnumerator ResetOnHitBool(float delay)
+    {
+        onHitBool = true;
+        yield return new WaitForSeconds(delay);
+        onHitBool = false;
+    }
     IEnumerator ResetTestAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
