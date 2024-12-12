@@ -45,9 +45,9 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator ScalePlayer()
     {
+        OnDie?.Invoke(this, EventArgs.Empty);
         yield return new WaitForSeconds(0.5f);
         visualTransform.DOScale(Vector3.zero, 2f);
-        OnDie?.Invoke(this,EventArgs.Empty);
         Destroy(gameObject);
 
     }
